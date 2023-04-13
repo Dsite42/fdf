@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:13:18 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/03/28 14:45:50 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:12:45 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include "ft_printf/ft_printf.h"
 # include "ft_printf/ft_printf_bonus.h"
-#include "get_next_line/get_next_line_bonus.h"
+# include "get_next_line/get_next_line_bonus.h"
 
 typedef struct s_list
 {

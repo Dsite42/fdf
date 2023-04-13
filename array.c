@@ -1,16 +1,27 @@
 #include <stdio.h>
+#include "libft/libft.h"
 
-void printArray(int arr[][rows], int rows) {
-    for(int i=0; i<rows; i++) {
-        for(int j=0; j<3; j++) {
-            printf("%d ", arr[i][j]);
-        }
-        printf("\n");
-    }
+void	of_free_arr(void **arr, int self_free)
+{
+	int	i;
+
+	if (arr == NULL)
+		return;
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		free(arr[i]);
+		i++;
+	}
+	if (self_free == 1 && arr != NULL)
+		free(arr);
 }
 
 int main() {
-    int data[2][3] = { {1, 2, 3}, {4, 5, 6} };
-    printArray(data, 2);
+    const char str[] = "Hallo ein Test wird hier gemacht";
+    char **splitted;
+   
+    splitted = ft_split(str, ' '  );
+    of_free_arr((void **)splitted, 1);
     return 0;
 }

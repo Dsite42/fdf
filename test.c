@@ -90,6 +90,23 @@ int	main(void)
 
 	init_map(&data);
 
+	int i = 0;
+	int j = 0;
+	while (data.map_int[j] != NULL)
+	{
+		while (i < arr_len(*data.map_str))
+		{
+			printf("%i\n", (data.map_int)[j][i]);
+			i++;
+		}
+		i = 0;
+		j++;
+		printf("\n");
+	}
+
+	of_free_arr((void **)data.map_int, 1);
+	of_free_two_d_arr((void ***)data.map_str, 1);
+
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (MLX_ERROR);

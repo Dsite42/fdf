@@ -14,18 +14,6 @@ int	two_d_arr_len(char ***arr)
 	return (i);
 }
 
-int	arr_len(char **arr)
-{
-	int i;
-
-	if (arr == NULL)
-		return (0);
-	i = 0;
-	while (arr[i] != NULL)
-		i++;
-	return (i);
-}
-
 char***	add_line_to_map(char ***map, char **splitted_line)
 	{
 		char ***new_map;
@@ -62,8 +50,10 @@ char *** init_map_str(char *file)
 	while (new_line != NULL)
 	{
 		map = add_line_to_map(map, ft_split(new_line, ' '));
+		free(new_line);
 		new_line = get_next_line(fd);
 	}
+	close(fd);
 	return (map);
 }
 
@@ -99,40 +89,27 @@ void	init_map(t_data	*data)
 //int	main(t_data	*data)
 
 {
-	char ***map_str;
-	int **map_int;
+	//char ***map_str;
+	//int **map_int;
 
-	map_str = init_map_str("test.fdf");
-	map_int = transform_map_to_int(map_str);
+	data->map_str = init_map_str("test.fdf");
+	data->map_int = transform_map_to_int(data->map_str);
 
 
-	printf("%s\n", map_str[1][1]);
-	printf("%i\n", (*map_int)[3]);
-	printf("depth: %i\n", arr_len(*map_str));
-
-	int i = 0;
-	while (*map_int != NULL)
-	{
-		while (i < arr_len(*map_str))
-		{
-			printf("%i\n", (*map_int)[i]);
-			i++;
-		}
-		i = 0;
-		map_int++;
-		printf("\n");
-	}
+	printf("%s\n", data->map_str[1][1]);
+	printf("%i\n", (*data->map_int)[3]);
+	printf("depth: %i\n", arr_len(*data->map_str));
 
 	//int i = 0;
-	//while (*map_str != NULL)
+	//while (*data->map_int != NULL)
 	//{
-	//	while ((*map_str)[i] != NULL)
+	//	while (i < arr_len(*data->map_str))
 	//	{
-	//		printf("%s\n", (*map_str)[i]);
+	//		printf("%i\n", (*data->map_int)[i]);
 	//		i++;
 	//	}
 	//	i = 0;
-	//	map_str++;
+	//	data->map_int++;
+	//	printf("\n");
 	//}
-	//return (0);
 }

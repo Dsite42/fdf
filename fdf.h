@@ -29,6 +29,8 @@ typedef struct s_data
 	void	*win_ptr;
 	t_img	img;
 	int		cur_img;
+	char ***map_str;
+	int **map_int;
 }	t_data;
 
 typedef struct s_rect
@@ -41,5 +43,8 @@ typedef struct s_rect
 }	t_rect;
 
 void	init_map(t_data	*data);
+void	of_free_arr(void **arr, int self_free);
+void	of_free_two_d_arr(void ***arr, int self_free);
+int		arr_len(char **arr);
 
 #endif
