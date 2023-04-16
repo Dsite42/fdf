@@ -14,34 +14,35 @@ int	two_d_arr_len(char ***arr)
 	return (i);
 }
 
-char***	add_line_to_map(char ***map, char **splitted_line)
-	{
-		char ***new_map;
-		int i;
-
-		i = 0;
-		new_map = (char ***)malloc(sizeof(char **) * (two_d_arr_len(map) + 2));
-		if (new_map == NULL)
-			return (NULL);
-		if (map != NULL)
-		{
-			while (map[i] != NULL)
-			{
-				new_map[i] = map[i];
-				i++;
-			}
-			free(map);
-		}
-		new_map[i] = splitted_line;
-		new_map[i + 1] = NULL;
-		return (new_map);
-	}
-
-char *** init_map_str(char *file)
+char	***add_line_to_map(char ***map, char **splitted_line)
 {
-	char ***map;
-	char *new_line;
-	int fd;
+	char	***new_map;
+	int		i;
+
+	i = 0;
+	new_map = (char ***)malloc(sizeof(char **) * (two_d_arr_len(map) + 2));
+	if (new_map == NULL)
+		return (NULL);
+	if (map != NULL)
+	{
+		while (map[i] != NULL)
+		{
+			new_map[i] = map[i];
+			i++;
+		}
+		free(map);
+	}
+	new_map[i] = splitted_line;
+	new_map[i + 1] = NULL;
+	return (new_map);
+}
+
+char	***init_map_str(char *file)
+{
+	char	***map;
+	char	*new_line;
+	int		fd;
+
 	map = NULL;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -57,11 +58,11 @@ char *** init_map_str(char *file)
 	return (map);
 }
 
-int **transform_map_to_int(char ***map_str)
+int	**transform_map_to_int(char ***map_str)
 {
-	int **map_int;
-	int i;
-	int j;
+	int	**map_int;
+	int	i;
+	int	j;
 
 	i = 0;
 	map_int = (int **)malloc(sizeof(int *) * (two_d_arr_len(map_str) + 1));
@@ -86,30 +87,9 @@ int **transform_map_to_int(char ***map_str)
 }
 
 void	init_map(t_data	*data)
-//int	main(t_data	*data)
-
 {
-	//char ***map_str;
-	//int **map_int;
-
 	data->map_str = init_map_str("test.fdf");
+	data->map_colunms = arr_len(data->map_str[0]);
+	data->map_rows = two_d_arr_len(data->map_str);
 	data->map_int = transform_map_to_int(data->map_str);
-
-
-	printf("%s\n", data->map_str[1][1]);
-	printf("%i\n", (*data->map_int)[3]);
-	printf("depth: %i\n", arr_len(*data->map_str));
-
-	//int i = 0;
-	//while (*data->map_int != NULL)
-	//{
-	//	while (i < arr_len(*data->map_str))
-	//	{
-	//		printf("%i\n", (*data->map_int)[i]);
-	//		i++;
-	//	}
-	//	i = 0;
-	//	data->map_int++;
-	//	printf("\n");
-	//}
 }

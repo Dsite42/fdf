@@ -4,15 +4,17 @@
 #include "libft/libft.h"
 #include <fcntl.h>
 #include <stdio.h>
+#include <math.h>
 
-# define WINDOW_WIDTH 600
-# define WINDOW_HEIGHT 300
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 600
 
 # define MLX_ERROR 1
 
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define WHITE_PIXEL 0xFFFFFF
+# define BLACK_PIXEL 0x000000
 
 typedef struct s_img
 {
@@ -29,8 +31,10 @@ typedef struct s_data
 	void	*win_ptr;
 	t_img	img;
 	int		cur_img;
-	char ***map_str;
-	int **map_int;
+	char	***map_str;
+	int		**map_int;
+	int 	map_colunms;
+	int 	map_rows;
 }	t_data;
 
 typedef struct s_rect
