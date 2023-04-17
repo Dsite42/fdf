@@ -32,9 +32,10 @@ typedef struct s_data
 	t_img	img;
 	int		cur_img;
 	char	***map_str;
-	int		**map_int;
+	double	***map_double;
 	int 	map_colunms;
 	int 	map_rows;
+	int		scale;
 }	t_data;
 
 typedef struct s_rect
