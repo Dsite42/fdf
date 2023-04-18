@@ -36,6 +36,9 @@ typedef struct s_data
 	int 	map_colunms;
 	int 	map_rows;
 	int		scale;
+	int		shift_x;
+	int		shift_y;
+	char	*file_path;
 }	t_data;
 
 typedef struct s_rect
@@ -47,7 +50,7 @@ typedef struct s_rect
 	int color;
 }	t_rect;
 
-void	init_map(t_data	*data);
+void	init_map(t_data	*data, char *file_path);
 void	of_free_arr(void **arr, int self_free);
 void	of_free_two_d_arr(void ***arr, int self_free);
 int		arr_len(char **arr);

@@ -92,9 +92,10 @@ double	***transform_map_to_int(char ***map_str)
 	return (map_double);
 }
 
-void	init_map(t_data	*data)
+void	init_map(t_data	*data, char *file_path)
 {
-	data->map_str = init_map_str("test.fdf");
+	data->file_path = file_path;
+	data->map_str = init_map_str(file_path);
 	data->map_colunms = arr_len(data->map_str[0]);
 	data->map_rows = two_d_arr_len(data->map_str);
 	data->map_double = transform_map_to_int(data->map_str);

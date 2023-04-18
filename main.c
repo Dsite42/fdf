@@ -7,6 +7,30 @@
 #include "fdf.h"
 
 
+void   isometric_transformation(t_data *data)
+{
+	int i = 0;
+	int j = 0;
+	double x = 0;
+	double y = 0;
+	double z = 0;
+
+	while (data->map_double[i] != NULL)
+	{
+		while (j < data->map_colunms)
+		{
+			x = data->map_double[i][j][0];
+			y = data->map_double[i][j][1];
+			z = data->map_double[i][j][2];
+			data->map_double[i][j][0] = (x - y) * cos(0.523599);
+			data->map_double[i][j][1] = -z + (x + y) * sin(0.523599);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char    *pixel;
@@ -70,17 +94,126 @@ int	handle_keypress(int keysym, t_data *data)
 	}
 	if (keysym == XK_plus)
 	{
-		data->scale += 10;
+		data->scale += 1;
+	int i = 0;
+	int j = 0;
+	while (data->map_double[j] != NULL)
+	{
+		while (i < data->map_colunms)
+		{
+			printf("x: %f\n", (data->map_double)[j][i][0]);
+			printf("y: %f\n", (data->map_double)[j][i][1]);
+			printf("z: %f\n", (data->map_double)[j][i][2]);
+			i++;
+		}
+		i = 0;
+		j++;
+		printf("\n");
+	}
 	}
 	if (keysym == XK_minus)
 	{
-		data->scale -= 10;
+		data->scale -= 1;
 	}
+	if (keysym == XK_Right)
+	{
+			data->shift_x += 20;
+	}
+	if (keysym == XK_Left)
+	{
+			data->shift_x -= 20;
+	}
+	if (keysym == XK_Up)
+	{
+			data->shift_y -= 20;
+	}
+	if (keysym == XK_Down)
+	{
+			data->shift_y += 20;
+	}
+	if (keysym == XK_h)
+	{
+		int i = 0;
+		int j = 0;
+		while (data->map_double[i] != NULL)
+		{
+			while (j < data->map_colunms)
+			{
+				if(data->map_double[i][j][2] != 0)
+					data->map_double[i][j][1] -= 1;
+				j++;
+			}
+			j = 0;
+			i++;
+		}
+	}
+
+	if (keysym == XK_l)
+	{
+		int i = 0;
+		int j = 0;
+		while (data->map_double[i] != NULL)
+		{
+			while (j < data->map_colunms)
+			{
+				if(data->map_double[i][j][2] != 0)
+					data->map_double[i][j][1] += 1;
+				j++;
+			}
+			j = 0;
+			i++;
+		}
+	}
+
+	if (keysym == XK_w)
+	{
+		int i = 0;
+		int j = 0;
+		double previous_y;
+		double	alpha;
+
+		alpha = -0.1;
+		while (data->map_double[i] != NULL)
+		{
+			while (j < data->map_colunms)
+			{
+				previous_y = data->map_double[i][j][1];
+				data->map_double[i][j][1] = previous_y * cos(alpha) + data->map_double[i][j][2] * sin(alpha);
+				data->map_double[i][j][2] = -previous_y * sin(alpha) + data->map_double[i][j][2] * cos(alpha);
+				j++;
+			}
+			j = 0;
+			i++;
+		}
+	}
+
+		if (keysym == XK_s)
+	{
+		int i = 0;
+		int j = 0;
+		double previous_y;
+		double	alpha;
+
+		alpha = 0.1;
+		while (data->map_double[i] != NULL)
+		{
+			while (j < data->map_colunms)
+			{
+				previous_y = data->map_double[i][j][1];
+				data->map_double[i][j][1] = previous_y * cos(alpha) + data->map_double[i][j][2] * sin(alpha);
+				data->map_double[i][j][2] = -previous_y * sin(alpha) + data->map_double[i][j][2] * cos(alpha);
+				j++;
+			}
+			j = 0;
+			i++;
+		}
+	}
+
 
 	return (0);
 }
 
-void line(t_data *data, int x0, int y0, int x1, int y1)
+void draw_line(t_data *data, int x0, int y0, int x1, int y1)
 {
     int dx =  abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
     int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
@@ -100,7 +233,8 @@ double	scale_x(t_data *data, double x)
 {
 	double	scaled_x;
 
-	scaled_x = ((WINDOW_WIDTH - (data->map_colunms - 1) * data->scale) / 2) + data->scale * x;
+	scaled_x = ((WINDOW_WIDTH - (data->map_colunms - 1) * data->scale) / 2) + data->scale * x + data->shift_x;
+	//scaled_x = x;
 	return (scaled_x);
 }
 
@@ -108,7 +242,8 @@ double	scale_y(t_data *data, double y)
 {
 	double	scaled_y;
 
-	scaled_y = ((WINDOW_HEIGHT - (data->map_rows - 1) * data->scale) / 2) + data->scale * y;
+	scaled_y = ((WINDOW_HEIGHT - (data->map_rows - 1) * data->scale) / 2) + data->scale * y + data->shift_y;
+	//scaled_y = y;
 	return (scaled_y);
 }
 
@@ -119,44 +254,21 @@ void	render_row(t_data *data)
 	double x = 0;
 	double y = 0;
 
-	of_free_two_d_arr((void ***)data->map_double, 1);
-	init_map(data);
-	printf("scale: %i\n", data->scale);
 	while (data->map_double[i] != NULL)
 	{
 		while (j < data->map_colunms)
 		{
-			//printf("%f\n", (data->map_double[i][j] / max_value *scale));
-			x = ((data->map_double[i][j][1] * cos(-45) - data->map_double[i][j][2] * sin(-45)) * cos(35.264) + data->map_double[i][j][0] * sin(35.264) * cos(30));
-			y = (-((data->map_double[i][j][1] * cos(-45) - data->map_double[i][j][2] * sin(-45)) * sin(35.264) - data->map_double[i][j][0] * cos(35.264)) * sin(30));
-				//printf("i: %i j: %i x: %f, y: %f\n", i, j, x, y);
-			//x = data->map_double[i][j][0];
-			//y = data->map_double[i][j][1];
-			data->map_double[i][j][0] = x;
-			data->map_double[i][j][1] = y;
-			
-				//printf("i: %i j: %i x2: %f, y2: %f\n", i, j, data->map_double[i][j][0], data->map_double[i][j][1]);
-			
-			//img_pix_put(&data->img, ((int)(WINDOW_WIDTH - data->map_colunms * scale) / 2) + scale * x, (int)((WINDOW_HEIGHT - data->map_rows * scale) / 2) + scale * (y / max_value), RED_PIXEL);
+			x = data->map_double[i][j][0];
+			y = data->map_double[i][j][1];
 			if (j > 0)
 			{
-				line(data, scale_x(data, data->map_double[i][j - 1][0]), scale_y(data, data->map_double[i][j - 1][1]), scale_x(data, x), scale_y(data, y));
+				draw_line(data, scale_x(data, data->map_double[i][j - 1][0]), scale_y(data, data->map_double[i][j - 1][1]), scale_x(data, x), scale_y(data, y));
 			}
 			
 			if (i > 0)
 			{
-				line(data, scale_x(data, data->map_double[i - 1][j][0]), scale_y(data, data->map_double[i - 1][j][1]), scale_x(data, x), scale_y(data, y));
+				draw_line(data, scale_x(data, data->map_double[i - 1][j][0]), scale_y(data, data->map_double[i - 1][j][1]), scale_x(data, x), scale_y(data, y));
 			}
-
-			//x = scale * ((j - data->map_colunms + 1) * cos(330) - (data->map_rows - 1 - i) * sin(330));
-			//y = scale * (i - data->map_double[i][j] / max_value);
-			//printf("%f\n", x);
-			//if (i != data->map_rows - 1 || (i == data->map_rows - 1 && j != data->map_colunms -1))
-			//	img_pix_put(&data->img, x + (x - (x * cos(30) - y * sin(30))),
-			//	 y ,
-			//	  RED_PIXEL);
-			//else
-			  //img_pix_put(&data->img, x, y, RED_PIXEL);
 			j++;
 		}
 		j = 0;
@@ -172,6 +284,7 @@ int	render(t_data *data)
 	render_background(&data->img, BLACK_PIXEL);
 	render_row(data);
 	
+	//img_pix_put(&data->img, 1199, 100, RED_PIXEL);
 	
 
 	//render_rect(&data->img, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100, 100, 100, GREEN_PIXEL});
@@ -182,11 +295,14 @@ int	render(t_data *data)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	data;
-	data.scale = 50;
-	init_map(&data);
+	data.scale = 10;
+	data.shift_x = 0;
+	data.shift_y = 0;
+	init_map(&data, argv[1]);
+
 
 	//int i = 0;
 	//int j = 0;
@@ -204,7 +320,8 @@ int	main(void)
 	//	printf("\n");
 	//}
 
-	
+	isometric_transformation(&data);
+
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (MLX_ERROR);
