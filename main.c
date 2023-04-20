@@ -85,6 +85,8 @@ void	render_background(t_img *img, int color)
 	}
 }
 
+
+
 int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
@@ -117,19 +119,19 @@ int	handle_keypress(int keysym, t_data *data)
 	}
 	if (keysym == XK_Right)
 	{
-			data->shift_x += 20;
+		data->shift_x += 20;
 	}
 	if (keysym == XK_Left)
 	{
-			data->shift_x -= 20;
+		data->shift_x -= 20;
 	}
 	if (keysym == XK_Up)
 	{
-			data->shift_y -= 20;
+		data->shift_y -= 20;
 	}
 	if (keysym == XK_Down)
 	{
-			data->shift_y += 20;
+		data->shift_y += 20;
 	}
 	if (keysym == XK_h)
 	{
@@ -139,8 +141,14 @@ int	handle_keypress(int keysym, t_data *data)
 		{
 			while (j < data->map_colunms)
 			{
-				if(data->map_double[i][j][2] != 0)
-					data->map_double[i][j][1] -= 1;
+				if(*(data->map_str[i][j]) != '0')
+				{
+					//if (data->map_double[i][j][1] > 0)
+						// data->map_double[i][j][1] -= 1;
+					//else
+					//	data->map_double[i][j][1] += 1;
+					data->map_double[i][j][2] += 1;
+				}
 				j++;
 			}
 			j = 0;
@@ -156,8 +164,11 @@ int	handle_keypress(int keysym, t_data *data)
 		{
 			while (j < data->map_colunms)
 			{
-				if(data->map_double[i][j][2] != 0)
+				if(*(data->map_str[i][j]) != '0')
+				{
 					data->map_double[i][j][1] += 1;
+					data->map_double[i][j][2] -= 1;
+				}
 				j++;
 			}
 			j = 0;
@@ -172,14 +183,14 @@ int	handle_keypress(int keysym, t_data *data)
 		double previous_y;
 		double	alpha;
 
-		alpha = -0.1;
+		alpha = 0.1;
 		while (data->map_double[i] != NULL)
 		{
 			while (j < data->map_colunms)
 			{
 				previous_y = data->map_double[i][j][1];
-				data->map_double[i][j][1] = previous_y * cos(alpha) + data->map_double[i][j][2] * sin(alpha);
-				data->map_double[i][j][2] = -previous_y * sin(alpha) + data->map_double[i][j][2] * cos(alpha);
+				data->map_double[i][j][1] = previous_y * cos(alpha) - data->map_double[i][j][2] * sin(alpha);
+				data->map_double[i][j][2] = previous_y * sin(alpha) + data->map_double[i][j][2] * cos(alpha);
 				j++;
 			}
 			j = 0;
@@ -220,8 +231,8 @@ void draw_line(t_data *data, int x0, int y0, int x1, int y1)
     int err = dx + dy, e2; /* error value e_xy */
 
     while (1) {
-		img_pix_put(&data->img, x0, y0, RED_PIXEL);
-        //setPixel(x0, y0);
+		if (x0 >= 0 && x0 < WINDOW_WIDTH && y0 >= 0 && y0 < WINDOW_HEIGHT)
+			img_pix_put(&data->img, x0, y0, RED_PIXEL);
         if (x0 == x1 && y0 == y1) break;
         e2 = 2 * err;
         if (e2 > dy) { err += dy; x0 += sx; } /* e_xy+e_x > 0 */
@@ -297,12 +308,14 @@ int	render(t_data *data)
 
 int	main(int argc, char **argv)
 {
+	if (argc != 2)
+		return (0);
+	
 	t_data	data;
 	data.scale = 10;
 	data.shift_x = 0;
 	data.shift_y = 0;
 	init_map(&data, argv[1]);
-
 
 	//int i = 0;
 	//int j = 0;
@@ -334,7 +347,7 @@ int	main(int argc, char **argv)
 
 	/* Setup hooks */ 
 	
-	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data.img.mlx_img = mlx_new_image(data.mlx_ptr, 1*WINDOW_WIDTH, 1*WINDOW_HEIGHT);
 	
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
