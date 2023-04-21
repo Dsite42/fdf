@@ -99,5 +99,8 @@ void	init_map(t_data	*data, char *file_path)
 	data->map_colunms = arr_len(data->map_str[0]);
 	data->map_rows = two_d_arr_len(data->map_str);
 	data->map_double = transform_map_to_int(data->map_str);
-	
+	data->scale = 10;
+	data->shift_x = 0;
+	data->shift_y = 0;
+
 }
