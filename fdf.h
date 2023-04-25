@@ -6,6 +6,7 @@
 # include <stdio.h>
 # include <math.h>
 # include <stdlib.h>
+# include <float.h>
 
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -63,5 +64,7 @@ int		arr_len(char **arr);
 void	isometric_transformation(t_data *data);
 int		handle_keypress(int keysym, t_data *data);
 int		window_close(t_data *data);
+int		of_atoi_base(char *str, char *base);
+
 
 #endif

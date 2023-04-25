@@ -53,7 +53,7 @@ void	render_background(t_img *img, int color)
 	}
 }
 
-void draw_line(t_data *data, int x0, int y0, int x1, int y1)
+void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
 {
     int dx =  abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
     int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
@@ -61,7 +61,7 @@ void draw_line(t_data *data, int x0, int y0, int x1, int y1)
 
     while (1) {
 		if (x0 >= 0 && x0 < WINDOW_WIDTH && y0 >= 0 && y0 < WINDOW_HEIGHT)
-			img_pix_put(&data->img, x0, y0, RED_PIXEL);
+			img_pix_put(&data->img, x0, y0, color);
         if (x0 == x1 && y0 == y1) break;
         e2 = 2 * err;
         if (e2 > dy) { err += dy; x0 += sx; } /* e_xy+e_x > 0 */
@@ -69,12 +69,40 @@ void draw_line(t_data *data, int x0, int y0, int x1, int y1)
     }
 }
 
+double	max_distance(t_data *data, int axis)
+{
+	double	max;
+	double min;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	max = DBL_MIN;
+	min = DBL_MAX;
+
+	while (data->map_double[i] != NULL)
+	{
+		while (j < data->map_colunms)
+		{
+			if (data->map_double[i][j][axis] > max)
+				max = data->map_double[i][j][axis];
+			if (data->map_double[i][j][axis] < min)
+				min = data->map_double[i][j][axis];
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (max - min);
+}
+
 double	scale_x(t_data *data, double x)
 {
 	double	scaled_x;
 
-	scaled_x = ((WINDOW_WIDTH - (data->map_colunms - 1) * data->scale)
-			/ 2) + data->scale * x + data->shift_x;
+	scaled_x = ((WINDOW_WIDTH - max_distance(data, 0) * data->scale)
+			/ 2) + data->scale * x + (max_distance(data, 0) * data->scale / 2) + data->shift_x;
 	return (scaled_x);
 }
 
@@ -82,7 +110,7 @@ double	scale_y(t_data *data, double y)
 {
 	double	scaled_y;
 
-	scaled_y = ((WINDOW_HEIGHT - (data->map_rows - 1) * data->scale)
+	scaled_y = ((WINDOW_HEIGHT - max_distance(data, 1) * data->scale)
 			/ 2) + data->scale * y + data->shift_y;
 	return (scaled_y);
 }
@@ -102,12 +130,14 @@ void	render_row(t_data *data)
 				draw_line(data, scale_x(data, data->map_double[i][j - 1][0]),
 					scale_y(data, data->map_double[i][j - 1][1]),
 					scale_x(data, data->map_double[i][j][0]),
-					scale_y(data, data->map_double[i][j][1]));
+					scale_y(data, data->map_double[i][j][1]),
+					data->map_double[i][j][3]);
 			if (i > 0)
 				draw_line(data, scale_x(data, data->map_double[i - 1][j][0]),
 					scale_y(data, data->map_double[i - 1][j][1]),
 					scale_x(data, data->map_double[i][j][0]),
-					scale_y(data, data->map_double[i][j][1]));
+					scale_y(data, data->map_double[i][j][1]),
+					data->map_double[i][j][3]);
 			j++;
 		}
 		j = 0;

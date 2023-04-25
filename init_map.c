@@ -58,6 +58,55 @@ char	***init_map_str(char *file)
 	return (map);
 }
 
+double	find_abs_max_z(t_data *data)
+{
+	int		i;
+	int		j;
+	double	max_abs_z;
+
+	i = 0;
+	j = 0;
+	max_abs_z = 0;
+	while (data->map_double[i] != NULL)
+	{
+		while (j < data->map_colunms)
+		{
+			if (abs(data->map_double[i][j][2]) > max_abs_z)
+				max_abs_z = abs(data->map_double[i][j][2]);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (max_abs_z);
+}
+
+void	normalize_z(t_data *data)
+{
+	int		i;
+	int		j;
+	double	max_abs_z;
+
+	i = 0;
+	j = 0;
+	max_abs_z = find_abs_max_z(data);
+	if(max_abs_z != 0)
+	{
+		printf("max_abs_z: %f\n", max_abs_z);
+		while (data->map_double[i] != NULL)
+		{
+			while (j < data->map_colunms)
+			{
+				data->map_double[i][j][2] = data->map_double[i][j][2] / max_abs_z;
+				j++;
+			}
+			j = 0;
+			i++;
+	}
+	}
+}
+
+
 double	***transform_map_to_int(char ***map_str)
 {
 	double	***map_double;
@@ -77,12 +126,18 @@ double	***transform_map_to_int(char ***map_str)
 			return (NULL);
 		while (map_str[i][j] != NULL)
 		{
-			map_double[i][j]= (double *)malloc(sizeof(double) * 3);
+			map_double[i][j] = (double *)malloc(sizeof(double) * 4);
 			if (map_double[i][j] == NULL)
 				return (NULL);
 			map_double[i][j][0] = (double)j;
 			map_double[i][j][1] = (double)i;
 			map_double[i][j][2] = (double)ft_atoi(map_str[i][j]);
+			if (ft_strchr(map_str[i][j], ',') != NULL)
+			printf("test: %i\n", of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF"));
+			if (ft_strchr(map_str[i][j], ',') != NULL)
+				map_double[i][j][3] = (double)of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF");
+			else
+				map_double[i][j][3] = WHITE_PIXEL;
 			j++;
 		}
 		map_double[i][j] = NULL;
@@ -99,6 +154,7 @@ void	init_map(t_data	*data, char *file_path)
 	data->map_colunms = arr_len(data->map_str[0]);
 	data->map_rows = two_d_arr_len(data->map_str);
 	data->map_double = transform_map_to_int(data->map_str);
+	normalize_z(data);
 	data->scale = 10;
 	data->shift_x = 0;
 	data->shift_y = 0;
