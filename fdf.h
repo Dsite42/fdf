@@ -41,8 +41,10 @@ typedef struct s_data
 	char	***map_str;
 	double	***map_double;
 	int		map_colunms;
+	double	max_distance_x;
+	double	max_distance_y;
 	int		map_rows;
-	int		scale;
+	double	scale;
 	int		shift_x;
 	int		shift_y;
 	double	x_rotation_rad;
@@ -66,6 +68,8 @@ void	isometric_transformation(t_data *data);
 int		handle_keypress(int keysym, t_data *data);
 int		window_close(t_data *data);
 int		of_atoi_base(char *str, char *base);
+double	max_distance(t_data *data, int axis);
+
 
 
 #endif

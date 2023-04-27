@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/27 14:05:29 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:04:59 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,54 +77,41 @@ void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
     }
 }
 
-double	max_distance(t_data *data, int axis)
-{
-	double	max;
-	double min;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	max = DBL_MIN;
-	min = DBL_MAX;
-
-	while (data->map_double[i] != NULL)
-	{
-		while (j < data->map_colunms)
-		{
-			if (data->map_double[i][j][axis] > max)
-				max = data->map_double[i][j][axis];
-			if (data->map_double[i][j][axis] < min)
-				min = data->map_double[i][j][axis];
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (max - min);
-}
-
 double	scale_x(t_data *data, double x)
 {
 	double	scaled_x;
 
-	scaled_x = ((WINDOW_WIDTH - max_distance(data, 0) * data->scale)
-			/ 2) + data->scale * x + (max_distance(data, 0) * data->scale / 2) + data->shift_x;
+	//scaled_x = ((WINDOW_WIDTH - data->max_distance_x * data->scale)
+	//		/ 2) + data->scale * x + (data->max_distance_x * data->scale / 2) + data->shift_x;
+	scaled_x = WINDOW_WIDTH / 2 + data->scale * x
+		+ fabs((data->map_double[data->map_rows - 1][0][0] * data->scale))
+		- (data->max_distance_x * data->scale / 2) + data->shift_x ;
 	return (scaled_x);
 }
 
 double	scale_y(t_data *data, double y)
 {
 	double	scaled_y;
-	if ((data->x_rotation_rad < 0))
-		scaled_y = ((WINDOW_HEIGHT - max_distance(data, 1) * data->scale)
+	if (data->x_rotation_rad < 1.5708 && data->x_rotation_rad >= 0)
+		scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
 				/ 2) + data->scale * y + data->shift_y;
-	else if (((int)(data->x_rotation_rad/3.14159))%2 < 1)
-		scaled_y = ((WINDOW_HEIGHT + max_distance(data, 1) * data->scale)
+	else if ((data->x_rotation_rad > 0 && ((int)((data->x_rotation_rad - 1.5708)/3.14159))%2 < 1))
+		scaled_y = ((WINDOW_HEIGHT + data->max_distance_y * data->scale)
 				/ 2) + data->scale * y + data->shift_y;
-	else
-		scaled_y = ((WINDOW_HEIGHT - max_distance(data, 1) * data->scale)
+	else if (data->x_rotation_rad > 0 && data->x_rotation_rad > 1.5708)
+		scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
+				/ 2) + data->scale * y + data->shift_y;
+
+
+
+	else if (data->x_rotation_rad > -1.5708 && data->x_rotation_rad <= 0)
+		scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
+				/ 2) + data->scale * y + data->shift_y;
+	else if (((int)(data->x_rotation_rad - 1.5708/3.14159))%2 < 1 && data->x_rotation_rad < 0)
+		scaled_y = ((WINDOW_HEIGHT + data->max_distance_y * data->scale)
+				/ 2) + data->scale * y + data->shift_y;
+	else if (data->x_rotation_rad < 0 && data->x_rotation_rad < -1.5708)
+		scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
 				/ 2) + data->scale * y + data->shift_y;
 	return (scaled_y);
 }
@@ -136,6 +123,9 @@ void	render_row(t_data *data)
 
 	i = 0;
 	j = 0;
+	data->max_distance_x = max_distance(data, 0);
+	data->max_distance_y = max_distance(data, 1);
+	
 	while (data->map_double[i] != NULL)
 	{
 		while (j < data->map_colunms)

@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:37 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/27 13:57:35 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:08:02 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	handle_keypress(int keysym, t_data *data)
 
 	}
 	}
-	if (keysym == XK_minus)
+	if (keysym == XK_minus && data->scale > 1)
 		data->scale -= 1;
 	if (keysym == XK_Right)
 		data->shift_x += 20;

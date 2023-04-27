@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/27 14:35:30 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:46:35 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	normalize_z(t_data *data)
 	max_abs_z = find_abs_max_z(data);
 	if(max_abs_z != 0)
 	{
-		printf("max_abs_z: %f\n", max_abs_z);
+		//printf("max_abs_z: %f\n", max_abs_z);
 		while (data->map_double[i] != NULL)
 		{
 			while (j < data->map_colunms)
@@ -142,8 +142,8 @@ double	***transform_map_to_int(char ***map_str)
 			map_double[i][j][0] = (double)j;
 			map_double[i][j][1] = (double)i;
 			map_double[i][j][2] = (double)ft_atoi(map_str[i][j]);
-			if (ft_strchr(map_str[i][j], ',') != NULL)
-			printf("test: %i\n", of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF"));
+			//if (ft_strchr(map_str[i][j], ',') != NULL)
+			//printf("test: %i\n", of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF"));
 			if (ft_strchr(map_str[i][j], ',') != NULL)
 				map_double[i][j][3] = (double)abs(of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF"));
 			else
@@ -192,6 +192,18 @@ int	is_map_valid(t_data *data)
 	return (1);
 }
 
+void	calc_start_scale(t_data *data)
+{
+	double	max_distance_x;
+	double	max_distance_y;
+
+	max_distance_y = max_distance(data, 0);
+	max_distance_x = max_distance(data, 1);
+	data->scale =  (WINDOW_WIDTH / 2) / max_distance_y;
+	if ((WINDOW_HEIGHT / 2) / max_distance_x < data->scale)
+		data->scale = (WINDOW_HEIGHT / 2) / max_distance_x;
+}
+
 void	init_map(t_data	*data, char *file_path)
 {
 	data->file_path = file_path;
@@ -205,9 +217,10 @@ void	init_map(t_data	*data, char *file_path)
 	data->map_rows = two_d_arr_len(data->map_str);
 	data->map_double = transform_map_to_int(data->map_str);
 	normalize_z(data);
-	data->scale = 10;
+	calc_start_scale(data);
+	printf("scale: %f\n", data->scale);
 	data->shift_x = 0;
 	data->shift_y = 0;
-	data->x_rotation_rad = -1.5708;
+	data->x_rotation_rad = 0;
 
 }
