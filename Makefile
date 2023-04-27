@@ -6,7 +6,7 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/04/05 11:34:13 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/04/26 11:35:26 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ $(NAME): $(OBJFILES)
 	$(CC) $(CC_FLAGS) $(INFILES) -o $(NAME)  libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a -I/usr/X11/include -L/usr/X11/lib -lX11 -lXext -lm
 
 $(OBJDIR)/%.o: %.c
-	$(CC) $(CC_FLAGS) -c $< -o $@
+	$(CC) $(CC_FLAGS) -c $< -o $@ -I/usr/X11/include
 
 setup:
 	@mkdir -p $(OBJDIR)/obj

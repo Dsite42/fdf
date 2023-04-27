@@ -1,5 +1,16 @@
-#include "fdf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 11:05:02 by cgodecke          #+#    #+#             */
+/*   Updated: 2023/04/27 11:05:15 by cgodecke         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "fdf.h"
 
 int	window_close(t_data *data)
 {
@@ -13,9 +24,6 @@ int	window_close(t_data *data)
 	//data->img.mlx_img = NULL;
 	exit (0);
 }
-
-
-
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {

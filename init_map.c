@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
+/*   Updated: 2023/04/27 11:04:39 by cgodecke         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
-
 
 int	two_d_arr_len(char ***arr)
 {
@@ -71,8 +81,8 @@ double	find_abs_max_z(t_data *data)
 	{
 		while (j < data->map_colunms)
 		{
-			if (abs(data->map_double[i][j][2]) > max_abs_z)
-				max_abs_z = abs(data->map_double[i][j][2]);
+			if (fabs(data->map_double[i][j][2]) > max_abs_z)
+				max_abs_z = fabs(data->map_double[i][j][2]);
 			j++;
 		}
 		j = 0;
@@ -135,7 +145,7 @@ double	***transform_map_to_int(char ***map_str)
 			if (ft_strchr(map_str[i][j], ',') != NULL)
 			printf("test: %i\n", of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF"));
 			if (ft_strchr(map_str[i][j], ',') != NULL)
-				map_double[i][j][3] = (double)of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF");
+				map_double[i][j][3] = (double)abs(of_atoi_base(ft_strchr(map_str[i][j], ',') + 3, "0123456789ABCDEF"));
 			else
 				map_double[i][j][3] = WHITE_PIXEL;
 			j++;
@@ -147,10 +157,47 @@ double	***transform_map_to_int(char ***map_str)
 	return (map_double);
 }
 
+// checks if the map coloumns have the same length and if the values are valid numbers. 
+int	is_map_valid(t_data *data)
+{
+	int	i;
+	int	j;
+	int k;
+	int	map_coloumns;
+
+	i = 0;
+	j = 0;
+	map_coloumns = arr_len(data->map_str[0]);
+	while (data->map_str[i] != NULL)
+	{
+		while (data->map_str[i][j] != NULL)
+		{
+			if (arr_len(data->map_str[i]) != map_coloumns)
+				return (0);
+			k = 0;
+			while (data->map_str[i][j][k] != ',' && data->map_str[i][j][k] != '\n' && data->map_str[i][j][k] != '\0' )
+			{
+				if (ft_isdigit(data->map_str[i][j][k]) == 0)
+					return (0);
+				k++;
+			}			
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (1);
+}
+
 void	init_map(t_data	*data, char *file_path)
 {
 	data->file_path = file_path;
 	data->map_str = init_map_str(file_path);
+	if(data->map_str == NULL || is_map_valid(data) == 0)
+	{
+		ft_printf("Invalid map\n");
+		exit(0);
+	}
 	data->map_colunms = arr_len(data->map_str[0]);
 	data->map_rows = two_d_arr_len(data->map_str);
 	data->map_double = transform_map_to_int(data->map_str);
