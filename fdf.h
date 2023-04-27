@@ -45,6 +45,7 @@ typedef struct s_data
 	int		scale;
 	int		shift_x;
 	int		shift_y;
+	double	x_rotation_rad;
 	char	*file_path;
 }	t_data;
 

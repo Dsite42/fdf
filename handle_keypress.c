@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:37 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/27 11:05:40 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:57:35 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	rotate_x(int keysym, t_data *data)
 		j = 0;
 		i++;
 	}
+	data->x_rotation_rad += alpha;
 }
 
 void	adjust_hight(int keysym, t_data *data)
@@ -92,6 +93,9 @@ int	handle_keypress(int keysym, t_data *data)
 		i = 0;
 		j++;
 		printf("\n");
+		printf("x_rotation_rad: %f mod: %i\n", data->x_rotation_rad, (int)(data->x_rotation_rad/3.14159))%2;
+
+
 	}
 	}
 	if (keysym == XK_minus)

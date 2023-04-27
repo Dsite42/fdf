@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/27 11:04:39 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:11:31 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,5 +205,6 @@ void	init_map(t_data	*data, char *file_path)
 	data->scale = 10;
 	data->shift_x = 0;
 	data->shift_y = 0;
+	data->x_rotation_rad = -1.5708;
 
 }

@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/27 11:05:15 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:57:41 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,15 @@ double	scale_x(t_data *data, double x)
 double	scale_y(t_data *data, double y)
 {
 	double	scaled_y;
-
-	scaled_y = ((WINDOW_HEIGHT - max_distance(data, 1) * data->scale)
-			/ 2) + data->scale * y + data->shift_y;
+	if ((data->x_rotation_rad < 0))
+		scaled_y = ((WINDOW_HEIGHT - max_distance(data, 1) * data->scale)
+				/ 2) + data->scale * y + data->shift_y;
+	else if (((int)(data->x_rotation_rad/3.14159))%2 < 1)
+		scaled_y = ((WINDOW_HEIGHT + max_distance(data, 1) * data->scale)
+				/ 2) + data->scale * y + data->shift_y;
+	else
+		scaled_y = ((WINDOW_HEIGHT - max_distance(data, 1) * data->scale)
+				/ 2) + data->scale * y + data->shift_y;
 	return (scaled_y);
 }
 
