@@ -43,6 +43,7 @@ typedef struct s_data
 	int		map_colunms;
 	double	max_distance_x;
 	double	max_distance_y;
+	double 	highest_y;
 	int		map_rows;
 	double	scale;
 	int		shift_x;
@@ -60,6 +61,22 @@ typedef struct s_rect
 	int	color;
 }	t_rect;
 
+typedef struct s_bresenham
+{
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+	int	color;
+	int	dx;
+	int	sx;
+	int	dy;
+	int	sy;
+	int	err;
+	int	e2;
+	int direction;
+}	t_line;
+
 void	init_map(t_data	*data, char *file_path);
 void	of_free_arr(void **arr, int self_free);
 void	of_free_two_d_arr(void ***arr, int self_free);
@@ -69,7 +86,16 @@ int		handle_keypress(int keysym, t_data *data);
 int		window_close(t_data *data);
 int		of_atoi_base(char *str, char *base);
 double	max_distance(t_data *data, int axis);
+int		is_map_valid(t_data *data);
+char	***init_map_str(char *file);
+int		two_d_arr_len(char ***arr);
+double	***transform_map_to_int(char ***map_str);
+int		render_image(t_data *data);
+void	img_pix_put(t_img *img, int x, int y, int color);
+void draw_line(t_data *data, t_line *line_val, int i, int j);
+double	highest_y(t_data *data);
 
-
+double	scale_x(t_data *data, double x);
+double	scale_y(t_data *data, double y);
 
 #endif

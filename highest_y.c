@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isometric_transformation.c                         :+:      :+:    :+:   */
+/*   highest_y.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/27 11:05:52 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/28 11:13:28 by cgodecke         ###   ########.fr       */
+/*   Created: 2023/04/29 18:56:45 by cgodecke          #+#    #+#             */
+/*   Updated: 2023/04/29 18:57:38 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	isometric_transformation(t_data *data)
+double	highest_y(t_data *data)
 {
 	int		i;
 	int		j;
-	double	x;
-	double	y;
-	double	z;
+	double	highest_y;
 
 	i = 0;
-	j = 0;
-	x = 0;
-	y = 0;
-	z = 0;
-	while (data->map_double[i] != NULL)
+	highest_y = DBL_MIN;
+	while (i < data->map_rows)
 	{
+		j = 0;
 		while (j < data->map_colunms)
 		{
-			x = data->map_double[i][j][0];
-			y = data->map_double[i][j][1];
-			z = data->map_double[i][j][2];
-			data->map_double[i][j][0] = (x - y) * cos(0.523599);
-			data->map_double[i][j][1] = -z + (x + y) * sin(0.523599);
-			j++;
+			if (data->map_double[i][j][1] < highest_y)
+				highest_y = data->map_double[i][j][1];
+			++j;
 		}
-		j = 0;
-		i++;
+		++i;
 	}
+	return (highest_y);
 }

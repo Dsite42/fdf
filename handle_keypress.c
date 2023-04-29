@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:37 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/27 17:08:02 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:23:45 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,24 @@ void	adjust_hight(int keysym, t_data *data)
 {
 	int	i;
 	int	j;
-	int	hight_change;
+	double	hight_change;
 
 	i = 0;
 	j = 0;
 	if (keysym == XK_h)
-		hight_change = 1;
+		hight_change = 2.0;
 	else
-		hight_change = -1;
+		hight_change = 0.5;
 	while (data->map_double[i] != NULL)
 	{
 		while (j < data->map_colunms)
 		{
 			if (*(data->map_str[i][j]) != '0')
 			{
-				data->map_double[i][j][1] -= hight_change;
-				data->map_double[i][j][2] += hight_change;
+				data->map_double[i][j][1] = data->map_double[i][j][1] - data->map_double[i][j][2] * (hight_change-1);
+				data->map_double[i][j][2] = data->map_double[i][j][2] * hight_change;
+				//data->map_double[i][j][1] = -data->map_double[i][j][2] + (data->map_double[i][j][0] + data->map_double[i][j][1]) * sin(0.523599);
+				
 			}
 			j++;
 		}
@@ -81,22 +83,22 @@ int	handle_keypress(int keysym, t_data *data)
 		data->scale += 1;
 	int	i = 0;
 	int	j = 0;
-	while (data->map_double[j] != NULL)
-	{
-		while (i < data->map_colunms)
-		{
-			printf("x: %f\n", (data->map_double)[j][i][0]);
-			printf("y: %f\n", (data->map_double)[j][i][1]);
-			printf("z: %f\n", (data->map_double)[j][i][2]);
-			i++;
-		}
-		i = 0;
-		j++;
-		printf("\n");
-		printf("x_rotation_rad: %f mod: %i\n", data->x_rotation_rad, (int)(data->x_rotation_rad/3.14159))%2;
-
-
-	}
+	//while (data->map_double[j] != NULL)
+	//{
+	//	while (i < data->map_colunms)
+	//	{
+	//		printf("x: %f\n", (data->map_double)[j][i][0]);
+	//		printf("y: %f\n", (data->map_double)[j][i][1]);
+	//		printf("z: %f\n", (data->map_double)[j][i][2]);
+	//		i++;
+	//	}
+	//	i = 0;
+	//	j++;
+	//	printf("\n");
+		printf("x_rotation_rad: %f mod_w: %i mod_s: %i\n", data->x_rotation_rad, (int)((data->x_rotation_rad - 1.5708)/3.14159)%2, (int)((data->x_rotation_rad + 1.5708)/-3.14159)%2);
+//
+//
+	//}
 	}
 	if (keysym == XK_minus && data->scale > 1)
 		data->scale -= 1;
