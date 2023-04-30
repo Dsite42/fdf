@@ -11,13 +11,46 @@
 # **************************************************************************** #
 
 
-CC = cc
-#CC_FLAGS = -O0 -pg #-Wall -Wextra -Werror
+CC = cc -g
+CC_FLAGS = -Wall -Wextra -Werror
 OBJDIR = obj
-INFILES = 	*.c\
-				of/*.c
-			
+INFILES = 	of/of_arr_len.c\
+			of/of_atoi_base.c\
+			of/of_free_arr.c\
+			of/of_free_two_d_arr.c\
+				handle_keypress.c\
+				init_map.c\
+				transform_map_to_int.c\
+				init_map_str.c\
+				main.c\
+				highest_y.c\
+				is_map_valid.c\
+				draw_line.c\
+				img_pix_put.c\
+				isometric_transformation.c\
+				max_distance.c\
+				render_image.c\
+
 OBJFILES = $(INFILES:%.c=$(OBJDIR)/%.o)
+
+BONUSFILES = 	of/of_arr_len.c\
+				of/of_atoi_base.c\
+				of/of_free_arr.c\
+				of/of_free_two_d_arr.c\
+				init_map.c\
+				transform_map_to_int.c\
+				init_map_str.c\
+				main.c\
+				highest_y.c\
+				is_map_valid.c\
+				draw_line.c\
+				img_pix_put.c\
+				isometric_transformation.c\
+				max_distance.c\
+				render_image.c\
+					handle_keypress_bonus.c\
+
+BONUSOBJFILES = $(BONUSFILES:%.c=$(OBJDIR)/%.o)
 
 NAME = fdf
 
@@ -49,7 +82,10 @@ fclean: clean
 	rm -f $(NAME)
 	rm -f $(NAME_BONUS)
 	cd libft && $(MAKE) fclean
-	
+
+bonus: all $(BONUSOBJFILES)
+	$(CC) $(CC_FLAGS) $(BONUSOBJFILES) -o $(NAME) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Darwin.a -I/usr/X11/include -L/usr/X11/lib -lX11 -lXext -lm
+
 re: fclean all
 
-.PHONY: all clean fclean setup re
+.PHONY: all clean fclean setup bonus re

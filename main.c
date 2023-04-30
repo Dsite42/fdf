@@ -56,6 +56,25 @@ int	start_mlx(t_data *data)
 	return (0);
 }
 
+void	zero_struct_data(t_data *data)
+{
+	data->mlx_ptr = NULL;
+	data->win_ptr = NULL;
+	data->img = (t_img){NULL, NULL, 0, 0, 0};
+	data->cur_img = 0;
+	data->map_str = NULL;
+	data->map_double = NULL;
+	data->map_colunms = 0;
+	data->map_rows = 0;
+	data->max_distance_x = 0;
+	data->max_distance_y = 0;
+	data->highest_y = 0;
+	data->scale = 0;
+	data->shift_x = 0;
+	data->shift_y = 0;
+	data->x_rotation_rad = 0;
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -63,6 +82,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (0);
+	zero_struct_data(&data);
 	init_map(&data, argv[1]);
 	isometric_transformation(&data);
 	calc_start_scale(&data);

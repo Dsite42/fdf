@@ -41,25 +41,15 @@ typedef struct s_data
 	char	***map_str;
 	double	***map_double;
 	int		map_colunms;
+	int		map_rows;
 	double	max_distance_x;
 	double	max_distance_y;
-	double 	highest_y;
-	int		map_rows;
+	double	highest_y;
 	double	scale;
 	int		shift_x;
 	int		shift_y;
 	double	x_rotation_rad;
-	char	*file_path;
 }	t_data;
-
-typedef struct s_rect
-{
-	int	x;
-	int	y;
-	int	width;
-	int	height;
-	int	color;
-}	t_rect;
 
 typedef struct s_bresenham
 {

@@ -12,7 +12,6 @@
 
 #include "fdf.h"
 
-
 static int	is_row_length_equal(t_data *data, int i_row)
 {
 	if (arr_len(data->map_str[i_row]) != data->map_colunms)

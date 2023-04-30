@@ -75,7 +75,6 @@ static void	normalize_z(t_data *data)
 
 void	init_map(t_data	*data, char *file_path)
 {
-	data->file_path = file_path;
 	data->map_str = init_map_str(file_path);
 	data->map_colunms = arr_len(data->map_str[0]);
 	data->map_rows = two_d_arr_len(data->map_str);
@@ -84,7 +83,10 @@ void	init_map(t_data	*data, char *file_path)
 		if (data->map_str == NULL)
 			ft_printf("No file found\n");
 		else
+		{
+			of_free_two_d_arr((void ***)data->map_str, 1);
 			ft_printf("Invalid map\n");
+		}
 		exit(0);
 	}
 	data->map_double = transform_map_to_int(data->map_str);
