@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/01 14:00:35 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:24:18 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	init_map(t_data	*data, char *file_path)
 	data->map_rows = two_d_arr_len(data->map_str);
 
 	data->map_double = transform_map_to_int(data->map_str);
-	normalize_z(data);
+	//normalize_z(data);
 	//printf("scale: %f\n", data->scale);
 	data->shift_x = 0;
 	data->shift_y = 0;

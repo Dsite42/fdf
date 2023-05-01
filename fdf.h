@@ -45,10 +45,13 @@ typedef struct s_data
 	double	max_distance_x;
 	double	max_distance_y;
 	double	highest_y;
+	double	lowest_x;
 	double	scale;
 	int		shift_x;
 	int		shift_y;
 	double	x_rotation_rad;
+	double	y_rotation_rad;
+	int 	show_help;
 }	t_data;
 
 typedef struct s_bresenham
@@ -82,10 +85,9 @@ int		two_d_arr_len(char ***arr);
 double	***transform_map_to_int(char ***map_str);
 int		render_image(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
-void draw_line(t_data *data, t_line *line_val, int i, int j);
+void	draw_line(t_data *data, t_line *line_val, int i, int j);
 double	highest_y(t_data *data);
-
+double	lowest_x(t_data *data);
 double	scale_x(t_data *data, double x);
 double	scale_y(t_data *data, double y);
-
 #endif
