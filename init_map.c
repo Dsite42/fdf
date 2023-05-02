@@ -73,6 +73,25 @@ static void	normalize_z(t_data *data)
 	}
 }
 
+void	define_window_size(t_data *data)
+{
+	if (data->map_colunms < 100 || data->map_rows < 100)
+	{
+		data->win_width = 1200;
+		data->win_height = 800;
+	}
+	else if (data->map_colunms < 200 || data->map_rows < 200)
+	{
+		data->win_width = 1800;
+		data->win_height = 1200;
+	}
+	else
+	{
+		data->win_width = 2400;
+		data->win_height = 1600;
+	}
+}
+
 void	init_map(t_data	*data, char *file_path)
 {
 	data->map_str = init_map_str(file_path);
@@ -96,4 +115,5 @@ void	init_map(t_data	*data, char *file_path)
 	data->shift_x = 0;
 	data->shift_y = 0;
 	data->x_rotation_rad = 0;
-}
+	define_window_size(data);
+	}

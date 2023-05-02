@@ -28,14 +28,14 @@ double	scale_x(t_data *data, double x)
 {
 	double	scaled_x;
 
-	scaled_x = (fabs(data->lowest_x) * data->scale) + ((WINDOW_WIDTH - data->max_distance_x * data->scale) / 2) + data->scale * x + data->shift_x;
+	scaled_x = (fabs(data->lowest_x) * data->scale) + ((data->win_width - data->max_distance_x * data->scale) / 2) + data->scale * x + data->shift_x;
 	return (scaled_x);
 }
 double	scale_y(t_data *data, double y)
 {
 	double	scaled_y;
 
-	scaled_y = (fabs(data->highest_y) * data->scale) + ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
+	scaled_y = (fabs(data->highest_y) * data->scale) + ((data->win_height - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
 	//if (data->x_rotation_rad < 1.5708 && data->x_rotation_rad >= 0)
 	//	scaled_y = (fabs(data->highest_y) * data->scale) + ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
 	//else if ((data->x_rotation_rad > 0 && (int)((data->x_rotation_rad - 1.5708)/3.14159)%2 < 1))
@@ -113,8 +113,8 @@ void	draw_line(t_data *data, t_line *line_val, int i, int j)
 	set_start_calc(line_val);
 	while (1)
 	{
-		if (line_val->x0 >= 0 && line_val->x0 < WINDOW_WIDTH
-			&& line_val->y0 >= 0 && line_val->y0 < WINDOW_HEIGHT)
+		if (line_val->x0 >= 0 && line_val->x0 < data->win_width
+			&& line_val->y0 >= 0 && line_val->y0 < data->win_height)
 			img_pix_put(&data->img, line_val->x0,
 				line_val->y0, line_val->color);
 		if (line_val->x0 == line_val->x1 && line_val->y0 == line_val->y1)

@@ -13,8 +13,8 @@
 # include "minilibx-linux/mlx.h"
 
 
-# define WINDOW_WIDTH 1200
-# define WINDOW_HEIGHT 600
+//# define WINDOW_WIDTH 1200 * 2
+//# define WINDOW_HEIGHT 600 *2
 
 # define MLX_ERROR 1
 
@@ -42,6 +42,8 @@ typedef struct s_data
 	double	***map_double;
 	int		map_colunms;
 	int		map_rows;
+	int 	win_width;
+	int 	win_height;
 	double	max_distance_x;
 	double	max_distance_y;
 	double	highest_y;

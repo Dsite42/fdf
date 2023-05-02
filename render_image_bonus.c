@@ -12,16 +12,16 @@
 
 #include "fdf.h"
 
-static void	render_background(t_img *img, int color)
+static void	render_background(t_data *data, t_img *img, int color)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < WINDOW_HEIGHT)
+	while (i < data->win_height)
 	{
 		j = 0;
-		while (j < WINDOW_WIDTH)
+		while (j < data->win_width)
 		{
 			img_pix_put(img, j++, i, color);
 		}
@@ -111,7 +111,7 @@ int	render_image(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	render_background(&data->img, BLACK_PIXEL);
+	render_background(data, &data->img, BLACK_PIXEL);
 	data->max_distance_x = max_distance(data, 0);
 	data->max_distance_y = max_distance(data, 1);
 	data->highest_y = highest_y(data);

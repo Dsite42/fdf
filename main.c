@@ -32,9 +32,9 @@ void	calc_start_scale(t_data *data)
 
 	max_distance_x = max_distance(data, 0);
 	max_distance_y = max_distance(data, 1);
-	data->scale = WINDOW_WIDTH * 0.8 / max_distance_x;
-	if (WINDOW_HEIGHT * 0.8 / max_distance_y < data->scale)
-		data->scale = WINDOW_HEIGHT * 0.8 / max_distance_y;
+	data->scale = data->win_width * 0.8 / max_distance_x;
+	if (data->win_height * 0.8 / max_distance_y < data->scale)
+		data->scale = data->win_height * 0.8 / max_distance_y;
 }
 
 int	start_mlx(t_data *data)
@@ -43,14 +43,14 @@ int	start_mlx(t_data *data)
 	if (data->mlx_ptr == NULL)
 		return (MLX_ERROR);
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
-			WINDOW_WIDTH, WINDOW_HEIGHT, "my window");
+			data->win_width, data->win_height, "my window");
 	if (data->win_ptr == NULL)
 	{
 		free(data->win_ptr);
 		return (MLX_ERROR);
 	}
 	data->img.mlx_img = mlx_new_image(data->mlx_ptr,
-			WINDOW_WIDTH, WINDOW_HEIGHT);
+			data->win_width, data->win_height);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
 	return (0);
