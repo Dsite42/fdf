@@ -6,69 +6,29 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:52:11 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/01 20:22:46 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:37:18 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-//double	scale_x(t_data *data, double x)
-//{
-//	double	scaled_x;
-//
-//	//scaled_x = ((WINDOW_WIDTH - data->max_distance_x * data->scale)
-//	//		/ 2) + data->scale * x + (data->max_distance_x * data->scale / 2) + data->shift_x;
-//	scaled_x = WINDOW_WIDTH / 2 + data->scale * x
-//		+ fabs((data->map_double[data->map_rows - 1][0][0] * data->scale))
-//		- (data->max_distance_x * data->scale / 2) + data->shift_x ;
-//	return (scaled_x);
-//}
-
 double	scale_x(t_data *data, double x)
 {
 	double	scaled_x;
 
-	scaled_x = (fabs(data->lowest_x) * data->scale) + ((data->win_width - data->max_distance_x * data->scale) / 2) + data->scale * x + data->shift_x;
+	scaled_x = (fabs(data->lowest_x) * data->scale)
+		+ ((data->win_width - data->max_distance_x * data->scale) / 2)
+		+ data->scale * x + data->shift_x;
 	return (scaled_x);
 }
+
 double	scale_y(t_data *data, double y)
 {
 	double	scaled_y;
 
-	scaled_y = (fabs(data->highest_y) * data->scale) + ((data->win_height - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
-	//if (data->x_rotation_rad < 1.5708 && data->x_rotation_rad >= 0)
-	//	scaled_y = (fabs(data->highest_y) * data->scale) + ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
-	//else if ((data->x_rotation_rad > 0 && (int)((data->x_rotation_rad - 1.5708)/3.14159)%2 < 1))
-	//	scaled_y = (fabs(data->highest_y) * data->scale) + ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
-	//else if (data->x_rotation_rad > 0 && data->x_rotation_rad > 1.5708)
-	//	scaled_y = (fabs(data->highest_y) * data->scale) + ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
-	//else if (data->x_rotation_rad > -1.5708 && data->x_rotation_rad <= 0)
-	//	scaled_y = (fabs(data->highest_y) * data->scale) - ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
-	//else if ((data->x_rotation_rad < 0 && (int)((data->x_rotation_rad + 1.5708)/-3.14159)%2 < 1))
-	//	scaled_y = (-fabs(data->highest_y) * data->scale) + ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
-	//else if (data->x_rotation_rad < 0 && data->x_rotation_rad > -1.5708)
-	//	scaled_y = (-fabs(data->highest_y) * data->scale) + ((WINDOW_HEIGHT - data->max_distance_y * data->scale) / 2) + data->scale * y + data->shift_y;
-
-	//if (data->x_rotation_rad < 1.5708 && data->x_rotation_rad >= 0)
-	//	scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
-	//			/ 2) + data->scale * y + data->shift_y;
-	//else if ((data->x_rotation_rad > 0 && (int)((data->x_rotation_rad - 1.5708)/3.14159)%2 < 1))
-	//	scaled_y = ((WINDOW_HEIGHT + data->max_distance_y * data->scale)
-	//			/ 2) + data->scale * y + data->shift_y;
-	//else if (data->x_rotation_rad > 0 && data->x_rotation_rad > 1.5708)
-	//	scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
-	//			/ 2) + data->scale * y + data->shift_y;
-
-	//else if (data->x_rotation_rad > -1.5708 && data->x_rotation_rad <= 0)
-	//	scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
-	//			/ 2) + data->scale * y + data->shift_y;
-	//else if (((int)((data->x_rotation_rad + 1.5708)/-3.14159)%2 < 1 && data->x_rotation_rad < 0))
-	//	scaled_y = ((WINDOW_HEIGHT + data->max_distance_y * data->scale)
-	//			/ 2) + data->scale * y + data->shift_y;
-	//else if (data->x_rotation_rad < 0 && data->x_rotation_rad < -1.5708)
-	//	scaled_y = ((WINDOW_HEIGHT - data->max_distance_y * data->scale)
-	//			/ 2) + data->scale * y + data->shift_y;
-
+	scaled_y = (fabs(data->highest_y) * data->scale)
+		+ ((data->win_height - data->max_distance_y * data->scale) / 2)
+		+ data->scale * y + data->shift_y;
 	return (scaled_y);
 }
 

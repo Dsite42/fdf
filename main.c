@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/01 19:45:07 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:29:22 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	window_close(t_data *data)
 	free(data->mlx_ptr);
 	of_free_two_d_arr((void ***)data->map_double, 1);
 	of_free_two_d_arr((void ***)data->map_str, 1);
-	//data->win_ptr = NULL;
-	//data->img.mlx_img = NULL;
 	exit (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/05/01 19:47:55 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/05/04 12:19:47 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,10 @@ BONUSFILES = 	of/of_arr_len.c\
 				max_distance.c\
 					render_image_bonus.c\
 					handle_keypress_bonus.c\
+					rotate_x_bonus.c\
+					rotate_y_bonus.c\
+					adjust_hight_bonus.c\
+					show_help_bonus.c\
 
 BONUSOBJFILES = $(BONUSFILES:%.c=$(OBJDIR)/%.o)
 

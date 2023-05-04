@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:05:59 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/01 14:14:13 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:30:48 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	is_row_length_equal(t_data *data, int i_row)
 
 static int	is_row_valid(t_data *data, int i, int j, int k)
 {
-
 	while (data->map_str[i][j][k] != ','
 		&& data->map_str[i][j][k] != '\n' && data->map_str[i][j][k] != '\0')
 	{
@@ -46,12 +45,10 @@ int	is_map_valid(t_data *data)
 	int	k;
 
 	i = 0;
-
 	while (data->map_str[i] != NULL)
 	{
 		j = 0;
 		k = 0;
-
 		if (data->map_str[i][j] == NULL)
 			return (0);
 		while (data->map_str[i][j] != NULL)

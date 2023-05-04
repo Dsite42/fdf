@@ -6,13 +6,13 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:59:00 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/01 17:04:34 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:28:26 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void 	parallel_projection(t_data *data)
+void	parallel_projection(t_data *data)
 {
 	int		i;
 	int		j;

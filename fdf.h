@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/04 12:21:27 by cgodecke          #+#    #+#             */
+/*   Updated: 2023/05/04 12:21:55 by cgodecke         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
@@ -27,7 +39,7 @@ typedef struct s_img
 {
 	void	*mlx_img;
 	char	*addr;
-	int		bpp; /* bits per pixel */
+	int		bpp;
 	int		line_len;
 	int		endian;
 }	t_img;
@@ -42,8 +54,8 @@ typedef struct s_data
 	double	***map_double;
 	int		map_colunms;
 	int		map_rows;
-	int 	win_width;
-	int 	win_height;
+	int		win_width;
+	int		win_height;
 	double	max_distance_x;
 	double	max_distance_y;
 	double	highest_y;
@@ -53,7 +65,8 @@ typedef struct s_data
 	int		shift_y;
 	double	x_rotation_rad;
 	double	y_rotation_rad;
-	int 	show_help;
+	char	view;
+	int		show_help;
 }	t_data;
 
 typedef struct s_bresenham
@@ -69,7 +82,7 @@ typedef struct s_bresenham
 	int	sy;
 	int	err;
 	int	e2;
-	int direction;
+	int	direction;
 }	t_line;
 
 void	init_map(t_data	*data, char *file_path);
@@ -92,4 +105,8 @@ double	highest_y(t_data *data);
 double	lowest_x(t_data *data);
 double	scale_x(t_data *data, double x);
 double	scale_y(t_data *data, double y);
+void	adjust_hight(int keysym, t_data *data);
+void	rotate_x(int keysym, t_data *data);
+void	rotate_y(int keysym, t_data *data);
+void	show_help(t_data *data);
 #endif

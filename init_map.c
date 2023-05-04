@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/01 18:24:18 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:31:58 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	normalize_z(t_data *data)
 	max_abs_z = find_abs_max_z(data);
 	if (max_abs_z != 0)
 	{
-		//printf("max_abs_z: %f\n", max_abs_z);
 		while (data->map_double[i] != NULL)
 		{
 			while (j < data->map_colunms)
@@ -77,18 +76,18 @@ void	define_window_size(t_data *data)
 {
 	if (data->map_colunms < 100 || data->map_rows < 100)
 	{
-		data->win_width = 1200;
-		data->win_height = 800;
+		data->win_width = 800;
+		data->win_height = 400;
 	}
 	else if (data->map_colunms < 200 || data->map_rows < 200)
 	{
-		data->win_width = 1800;
-		data->win_height = 1200;
+		data->win_width = 1200;
+		data->win_height = 800;
 	}
 	else
 	{
-		data->win_width = 2400;
-		data->win_height = 1600;
+		data->win_width = 1800;
+		data->win_height = 1200;
 	}
 }
 
@@ -108,12 +107,10 @@ void	init_map(t_data	*data, char *file_path)
 	}
 	data->map_colunms = arr_len(data->map_str[0]);
 	data->map_rows = two_d_arr_len(data->map_str);
-
 	data->map_double = transform_map_to_int(data->map_str);
 	//normalize_z(data);
-	//printf("scale: %f\n", data->scale);
 	data->shift_x = 0;
 	data->shift_y = 0;
 	data->x_rotation_rad = 0;
 	define_window_size(data);
-	}
+}
