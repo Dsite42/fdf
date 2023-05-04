@@ -6,7 +6,7 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/05/04 12:19:47 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/05/04 16:22:06 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ INFILES = 	of/of_arr_len.c\
 			of/of_atoi_base.c\
 			of/of_free_arr.c\
 			of/of_free_two_d_arr.c\
+			of/of_str_to_lower.c\
 				handle_keypress.c\
 				init_map.c\
 				transform_map_to_int.c\
@@ -37,22 +38,23 @@ BONUSFILES = 	of/of_arr_len.c\
 				of/of_atoi_base.c\
 				of/of_free_arr.c\
 				of/of_free_two_d_arr.c\
-				init_map.c\
-				transform_map_to_int.c\
-				init_map_str.c\
-				main.c\
-				highest_y.c\
-				is_map_valid.c\
-				draw_line.c\
-				img_pix_put.c\
-				isometric_transformation.c\
-				max_distance.c\
-					render_image_bonus.c\
-					handle_keypress_bonus.c\
-					rotate_x_bonus.c\
-					rotate_y_bonus.c\
-					adjust_hight_bonus.c\
-					show_help_bonus.c\
+				of/of_str_to_lower.c\
+					init_map.c\
+					transform_map_to_int.c\
+					init_map_str.c\
+					main.c\
+					highest_y.c\
+					is_map_valid.c\
+					draw_line.c\
+					img_pix_put.c\
+					isometric_transformation.c\
+					max_distance.c\
+						render_image_bonus.c\
+						handle_keypress_bonus.c\
+						rotate_x_bonus.c\
+						rotate_y_bonus.c\
+						adjust_hight_bonus.c\
+						show_help_bonus.c\
 
 BONUSOBJFILES = $(BONUSFILES:%.c=$(OBJDIR)/%.o)
 
@@ -62,7 +64,7 @@ all: setup $(NAME)
 
 $(NAME): $(OBJFILES)
 	cd libft && $(MAKE)
-#cd minilibx-linux && $(MAKE)
+	cd minilibx-linux && $(MAKE)
 	$(CC) $(CC_FLAGS) $(INFILES) -o $(NAME) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Darwin.a -I/usr/X11/include -L/usr/X11/lib -lX11 -lXext -lm
 #$(CC) $(CC_FLAGS) $(INFILES) -o $(NAME) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a -I/usr/include/X11 -L/usr/lib/X11 -lX11 -lXext -lm
 
@@ -80,7 +82,7 @@ clean:
 	rm -f $(OBJFILES) $(BONUSOBJFILES)
 	rm -r -f obj/
 	cd libft && $(MAKE) clean
-#cd minilibx-linux && $(MAKE) clean
+	cd minilibx-linux && $(MAKE) clean
 
 fclean: clean
 	rm -f $(NAME)

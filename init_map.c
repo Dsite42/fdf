@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 12:31:58 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:43:18 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	define_window_size(t_data *data)
 void	init_map(t_data	*data, char *file_path)
 {
 	data->map_str = init_map_str(file_path);
+	data->map_colunms = arr_len(data->map_str[0]);
+	data->map_rows = two_d_arr_len(data->map_str);
 	if (data->map_str == NULL || is_map_valid(data) == 0)
 	{
 		if (data->map_str == NULL)
@@ -105,8 +107,6 @@ void	init_map(t_data	*data, char *file_path)
 		}
 		exit(0);
 	}
-	data->map_colunms = arr_len(data->map_str[0]);
-	data->map_rows = two_d_arr_len(data->map_str);
 	data->map_double = transform_map_to_int(data->map_str);
 	//normalize_z(data);
 	data->shift_x = 0;

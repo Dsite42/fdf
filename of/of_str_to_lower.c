@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   of_arr_len.c                                       :+:      :+:    :+:   */
+/*   of_str_to_lower.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/13 18:43:19 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 15:43:06 by cgodecke         ###   ########.fr       */
+/*   Created: 2023/05/04 16:16:15 by cgodecke          #+#    #+#             */
+/*   Updated: 2023/05/04 16:32:18 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-int	arr_len(char **arr)
+void	of_str_to_lower(char *str)
 {
-	int	i;
-
-	if (arr == NULL)
-		return (0);
-	i = 0;
-	while (arr[i] != NULL && *(arr[i]) != '\n')
-		i++;
-	return (i);
+	while (*str != '\0')
+	{
+		if (*str >= 'A' && *str <= 'Z')
+			*str = *str + 32;
+		str++;
+	}
 }
