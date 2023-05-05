@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 12:21:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 16:32:32 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:48:03 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,11 @@
 # include <X11/keysym.h>
 # include "minilibx-linux/mlx.h"
 
-
-//# define WINDOW_WIDTH 1200 * 2
-//# define WINDOW_HEIGHT 600 *2
-
 # define MLX_ERROR 1
 
-# define RED_PIXEL 0xFF0000
-# define GREEN_PIXEL 0xFF00
 # define WHITE_PIXEL 0xFFFFFF
 # define BLACK_PIXEL 0x000000
+# define GREEN_PIXEL 0x00FF00
 
 typedef struct s_img
 {
@@ -86,28 +81,34 @@ typedef struct s_bresenham
 }	t_line;
 
 void	init_map(t_data	*data, char *file_path);
+double	***transform_map_to_int(char ***map_str);
+char	***init_map_str(char *file);
+int		is_map_valid(t_data *data);
+
+void	isometric_transformation(t_data *data);
+void	adjust_hight(int keysym, t_data *data);
+void	rotate_x(int keysym, t_data *data);
+void	rotate_y(int keysym, t_data *data);
+
+void	of_str_to_lower(char *str);
+int		of_atoi_base(char *str, char *base);
 void	of_free_arr(void **arr, int self_free);
 void	of_free_two_d_arr(void ***arr, int self_free);
+
 int		arr_len(char **arr);
-void	isometric_transformation(t_data *data);
-int		handle_keypress(int keysym, t_data *data);
-int		window_close(t_data *data);
-int		of_atoi_base(char *str, char *base);
-double	max_distance(t_data *data, int axis);
-int		is_map_valid(t_data *data);
-char	***init_map_str(char *file);
 int		two_d_arr_len(char ***arr);
-double	***transform_map_to_int(char ***map_str);
+
+double	max_distance(t_data *data, int axis);
 int		render_image(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
 void	draw_line(t_data *data, t_line *line_val, int i, int j);
+int		handle_keypress(int keysym, t_data *data);
+int		window_close(t_data *data);
+
 double	highest_y(t_data *data);
 double	lowest_x(t_data *data);
 double	scale_x(t_data *data, double x);
 double	scale_y(t_data *data, double y);
-void	adjust_hight(int keysym, t_data *data);
-void	rotate_x(int keysym, t_data *data);
-void	rotate_y(int keysym, t_data *data);
+
 void	show_help(t_data *data);
-void	of_str_to_lower(char *str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 15:43:18 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:33:33 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,54 +22,6 @@ int	two_d_arr_len(char ***arr)
 	while (arr[i] != NULL)
 		i++;
 	return (i);
-}
-
-static double	find_abs_max_z(t_data *data)
-{
-	int		i;
-	int		j;
-	double	max_abs_z;
-
-	i = 0;
-	j = 0;
-	max_abs_z = 0;
-	while (data->map_double[i] != NULL)
-	{
-		while (j < data->map_colunms)
-		{
-			if (fabs(data->map_double[i][j][2]) > max_abs_z)
-				max_abs_z = fabs(data->map_double[i][j][2]);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (max_abs_z);
-}
-
-static void	normalize_z(t_data *data)
-{
-	int		i;
-	int		j;
-	double	max_abs_z;
-
-	i = 0;
-	j = 0;
-	max_abs_z = find_abs_max_z(data);
-	if (max_abs_z != 0)
-	{
-		while (data->map_double[i] != NULL)
-		{
-			while (j < data->map_colunms)
-			{
-				data->map_double[i][j][2]
-					= data->map_double[i][j][2] / max_abs_z;
-				j++;
-			}
-			j = 0;
-			i++;
-		}
-	}
 }
 
 void	define_window_size(t_data *data)
@@ -108,7 +60,6 @@ void	init_map(t_data	*data, char *file_path)
 		exit(0);
 	}
 	data->map_double = transform_map_to_int(data->map_str);
-	//normalize_z(data);
 	data->shift_x = 0;
 	data->shift_y = 0;
 	data->x_rotation_rad = 0;

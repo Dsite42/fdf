@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:22:16 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 17:02:56 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:53:05 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	transform_row_to_int(double	***map_double, char ***map_str, int i, int *j)
 		map_double[i][*j][2] = (double)ft_atoi(map_str[i][*j]);
 		if (ft_strchr(map_str[i][*j], ',') != NULL)
 		{
+			of_str_to_lower(map_str[i][*j]);
 			map_double[i][*j][3] = (double)abs(
 					of_atoi_base(ft_strchr(map_str[i][*j], ',')
 						+ 3, "0123456789abcdef"));

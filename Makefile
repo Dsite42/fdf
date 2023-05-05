@@ -6,13 +6,13 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/05/04 16:22:06 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/05/05 11:31:47 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc -g
-#CC_FLAGS = -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror
 OBJDIR = obj
 INFILES = 	of/of_arr_len.c\
 			of/of_atoi_base.c\
