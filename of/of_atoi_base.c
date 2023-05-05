@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:06:09 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 16:54:17 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/05 12:08:38 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int	of_atoi_base(char *str, char *base)
 	int	c_min;
 	int	base_len;
 
+	c_min = 0;
+	base_len = 0;
 	start_n = is_spmn (str, &c_min);
 	if (check_base(base, &base_len) == 0)
 		return (0);
