@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:19:38 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/04/29 18:20:19 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/06 18:09:10 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	***add_line_to_map(char ***map, char **splitted_line)
 
 	i = 0;
 	new_map = (char ***)malloc(sizeof(char **) * (two_d_arr_len(map) + 2));
-	if (new_map == NULL)
+	if (new_map == NULL || splitted_line == NULL)
 		return (NULL);
 	if (map != NULL)
 	{
@@ -50,6 +50,8 @@ char	***init_map_str(char *file)
 	{
 		map = add_line_to_map(map, ft_split(new_line, ' '));
 		free(new_line);
+		if (map == NULL)
+			return (NULL);
 		new_line = get_next_line(fd);
 	}
 	close(fd);

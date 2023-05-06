@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 18:05:59 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 15:44:35 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/06 18:34:01 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	is_map_valid(t_data *data)
 	int	j;
 	int	k;
 
+	if (data->map_colunms == 1)
+		return (0);
 	i = 0;
 	while (data->map_str[i] != NULL)
 	{

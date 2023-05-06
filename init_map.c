@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:04:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/05 11:33:33 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/06 18:26:28 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ void	define_window_size(t_data *data)
 void	init_map(t_data	*data, char *file_path)
 {
 	data->map_str = init_map_str(file_path);
+	if (data->map_str == NULL)
+	{
+		perror("No file found or empty\n");
+		exit(FILE_ERROR);
+	}
 	data->map_colunms = arr_len(data->map_str[0]);
 	data->map_rows = two_d_arr_len(data->map_str);
-	if (data->map_str == NULL || is_map_valid(data) == 0)
+	if (is_map_valid(data) == 0)
 	{
-		if (data->map_str == NULL)
-			ft_printf("No file found or empty\n");
-		else
-		{
-			of_free_two_d_arr((void ***)data->map_str, 1);
-			ft_printf("Invalid map\n");
-		}
-		exit(0);
+		of_free_two_d_arr((void ***)data->map_str, 1);
+		perror("Invalid map\n");
+		exit(MAP_ERROR);
 	}
 	data->map_double = transform_map_to_int(data->map_str);
 	data->shift_x = 0;

@@ -6,7 +6,7 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/03/27 18:35:58 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/05/06 17:11:35 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,10 @@ CC_FLAGS = -Wall -Wextra -Werror
 AR = ar
 AR_FLAGS = -crs
 OBJDIR = obj
+HEADER := libft.h\
+			get_next_line/get_next_line_bonus.h\
+			ft_printf/ft_printf_bonus.h\
+
 INFILES = 		ft_isalpha.c\
 				ft_memcmp.c\
 				ft_putendl_fd.c\
@@ -82,7 +86,7 @@ NAME = libft.a
 
 all: setup $(NAME)
 
-$(NAME): $(OBJFILES) $(BONUSOBJFILES) $(get_next_line_OBJ) $(ft_printf_OBJ)
+$(NAME): $(OBJFILES) ${HEADER} $(BONUSOBJFILES) $(get_next_line_OBJ) $(ft_printf_OBJ)
 #$(CC) -c $(CC_FLAGS) $(OBJFILES) $(Get_Next_Line_OBJ)
 	$(AR)  $(AR_FLAGS) $(NAME) $(OBJFILES) $(BONUSOBJFILES) $(get_next_line_OBJ) $(ft_printf_OBJ)
 

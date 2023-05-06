@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 12:21:27 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/05 11:48:03 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/06 18:38:13 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@
 # include <math.h>
 # include <stdlib.h>
 # include <float.h>
+# include <errno.h>
 
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "minilibx-linux/mlx.h"
 
 # define MLX_ERROR 1
+# define MAP_ERROR 2
+# define FILE_ERROR 3
 
 # define WHITE_PIXEL 0xFFFFFF
 # define BLACK_PIXEL 0x000000

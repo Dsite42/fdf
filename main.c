@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/04 12:29:22 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/06 18:38:33 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,28 @@ void	calc_start_scale(t_data *data)
 int	start_mlx(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
-	if (data->mlx_ptr == NULL)
-		return (MLX_ERROR);
 	data->win_ptr = mlx_new_window(data->mlx_ptr,
 			data->win_width, data->win_height, "my window");
-	if (data->win_ptr == NULL)
-	{
-		free(data->win_ptr);
-		return (MLX_ERROR);
-	}
 	data->img.mlx_img = mlx_new_image(data->mlx_ptr,
 			data->win_width, data->win_height);
 	data->img.addr = mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
+	if (data->mlx_ptr == NULL || data->win_ptr == NULL
+		|| data->img.mlx_img == NULL || data->img.addr == NULL)
+	{
+		if (data->mlx_ptr != NULL)
+			free(data->mlx_ptr);
+		if (data->win_ptr != NULL)
+			free(data->win_ptr);
+		if (data->img.mlx_img != NULL)
+			free(data->img.mlx_img);
+		if (data->img.addr != NULL)
+			free(data->img.addr);
+		of_free_two_d_arr((void ***)data->map_double, 1);
+		of_free_two_d_arr((void ***)data->map_str, 1);
+		perror("Error while initializing the mlx\n");
+		exit (MLX_ERROR);
+	}
 	return (0);
 }
 
@@ -76,7 +85,6 @@ void	zero_struct_data(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		error_start_mlx;
 
 	if (argc != 2)
 		return (0);
@@ -84,9 +92,7 @@ int	main(int argc, char **argv)
 	init_map(&data, argv[1]);
 	isometric_transformation(&data);
 	calc_start_scale(&data);
-	error_start_mlx = start_mlx(&data);
-	if (error_start_mlx != 0)
-		return (error_start_mlx);
+	start_mlx(&data);
 	mlx_loop_hook(data.mlx_ptr, &render_image, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win_ptr, DestroyNotify,

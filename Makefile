@@ -6,14 +6,16 @@
 #    By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/18 15:39:27 by cgodecke          #+#    #+#              #
-#    Updated: 2023/05/05 12:14:50 by cgodecke         ###   ########.fr        #
+#    Updated: 2023/05/06 17:45:36 by cgodecke         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 CC = cc
 CC_FLAGS = -Wall -Wextra -Werror
 OBJDIR = obj
+HEADER := fdf.h
+LIBFTDIR := libft
+LIBFT := libft.a
 INFILES = 	of/of_arr_len.c\
 			of/of_atoi_base.c\
 			of/of_free_arr.c\
@@ -60,34 +62,33 @@ BONUSOBJFILES = $(BONUSFILES:%.c=$(OBJDIR)/%.o)
 
 NAME = fdf
 
-all: setup $(NAME)
+all: library setup $(NAME)
 
-$(NAME): $(OBJFILES)
-	cd libft && $(MAKE)
-	cd minilibx-linux && $(MAKE)
+library:
+	make -C libft
+	make -C minilibx-linux
+
+$(NAME): $(OBJFILES) ${HEADER}
 	$(CC) $(CC_FLAGS) $(INFILES) -o $(NAME) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Darwin.a -I/usr/X11/include -L/usr/X11/lib -lX11 -lXext -lm
 #$(CC) $(CC_FLAGS) $(INFILES) -o $(NAME) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a -I/usr/include/X11 -L/usr/lib/X11 -lX11 -lXext -lm
-
-
 
 $(OBJDIR)/%.o: %.c
 	$(CC) $(CC_FLAGS) -c $< -o $@ -I/usr/X11/include
 
 setup:
 	@mkdir -p $(OBJDIR)/obj
-	@mkdir -p $(OBJDIR)/list
 	@mkdir -p $(OBJDIR)/of
 
 clean:
 	rm -f $(OBJFILES) $(BONUSOBJFILES)
 	rm -r -f obj/
-	cd libft && $(MAKE) clean
-	cd minilibx-linux && $(MAKE) clean
+	make clean -C libft 
+	make clean -C minilibx-linux
 
 fclean: clean
 	rm -f $(NAME)
 	rm -f $(NAME_BONUS)
-	cd libft && $(MAKE) fclean
+	make fclean -C libft
 
 bonus: all $(BONUSOBJFILES)
 	$(CC) $(CC_FLAGS) $(BONUSOBJFILES) -o $(NAME) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Darwin.a -I/usr/X11/include -L/usr/X11/lib -lX11 -lXext -lm
