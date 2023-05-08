@@ -6,7 +6,7 @@
 /*   By: cgodecke <cgodecke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 11:05:02 by cgodecke          #+#    #+#             */
-/*   Updated: 2023/05/06 18:38:33 by cgodecke         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:26:54 by cgodecke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc != 2)
+	{
+		perror("Error: wrong number of arguments\n");
 		return (0);
+	}
 	zero_struct_data(&data);
 	init_map(&data, argv[1]);
 	isometric_transformation(&data);
