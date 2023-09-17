@@ -7,4 +7,7 @@ developed internally and includes basic necessary tools to open a window, create
 
 ![ft_printf table](https://github.com/Dsite42/fdf/blob/master/fdf%20subject%20table.jpg)
 
+![ft_printf table](https://github.com/Dsite42/fdf/blob/master/fdf-readme-42.jpg)
+![ft_printf table](https://github.com/Dsite42/fdf/blob/master/fdf-readme-fract.jpg)
+![ft_printf table](https://github.com/Dsite42/fdf/blob/master/fdf-readme-mars.jpg)
 [Subject PDF](subject-fdf.pdf)
